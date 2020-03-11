@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity  {
         return true;
     }
     @Override
-    public boolean onOptionsItemSected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case R.id.menu_settings:
                 return true;

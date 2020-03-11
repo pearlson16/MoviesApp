@@ -10,6 +10,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/detail_backdrop_height"
+        android:id="@+id/appbar"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -38,6 +39,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:id="@+id/toolbar"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/Theme.AppCompat.Light"/>
         </com.google.android.material.appbar.CollapsingToolbarLayout>

@@ -1,16 +1,19 @@
 package com.example.movieapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.movieapp.DetailActivity;
 import com.example.movieapp.R;
 import com.example.movieapp.model.Movie;
 
@@ -18,7 +21,7 @@ import java.util.List;
 
 public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHolder> {
 
-    private Configuration mContext;
+    private Context mContext;
     private List<Movie> movieList;
 
     public MoviesAdapter(Context mContext, List<Movie> movieList){
@@ -26,7 +29,7 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
         this.movieList = movieList;
     }
 
-    @Overrided
+    @Override
     public MoviesAdapter.MyViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.movie_card, viewGroup, false);
@@ -60,6 +63,24 @@ public class MoviesAdapter extends RecyclerView.Adapter<MoviesAdapter.MyViewHold
             title = (TextView) view.findViewById(R.id.title);
             userrating = (TextView) view.findViewById(R.id.userrating);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int pos = getAdapterPosition();
+                    if (pos != RecyclerView.NO_POSITION){
+                        Movie clickedDataItem = movieList.get(pos);
+                        Intent intent = new Intent(mContext, DetailActivity.class);
+                        intent.putExtra("original_title", movieList.get(pos).getOriginalTitle());
+                        intent.putExtra("poster_path", movieList.get(pos).getPosterPath());
+                        intent.putExtra("overview", movieList.get(pos).getOverview());
+                        intent.putExtra("vote_average", Double.toString(movieList.get(pos).getVoteAverage()));
+                        intent.putExtra("release_date", movieList.get(pos).getReleaseDate());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        mContext.startActivity(intent);
+                        Toast.makeText(v.getContext(), "You clicked " + clickedDataItem.getOriginalTitle(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 }
